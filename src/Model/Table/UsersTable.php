@@ -57,6 +57,7 @@ class UsersTable extends Table
         $this->primaryKey('id');
         
         $this->addBehavior('Timestamp');
+        $this->addBehavior('Loggable');
         
         $this->belongsTo('Parties', [
             'foreignKey' => 'party_id'

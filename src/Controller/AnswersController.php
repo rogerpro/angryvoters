@@ -11,6 +11,15 @@ use App\Controller\AppController;
 class AnswersController extends AppController
 {
 
+    public function custom()
+    {
+        $q = $this->Answers->find('latestAnswersFromLatestQuestions', [
+            'election_id' => 2
+        ]);
+        debug($q->toArray());
+        $this->render(false);
+    }
+
     public function logs()
     {
         $q = $this->Answers->find();

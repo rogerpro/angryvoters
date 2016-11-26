@@ -26,17 +26,18 @@ class AnswersTable extends Table
     /**
      * Initialize method
      *
-     * @param array $config The configuration for the Table.
+     * @param array $config
+     *            The configuration for the Table.
      * @return void
      */
     public function initialize(array $config)
     {
         parent::initialize($config);
-
+        
         $this->table('answers');
         $this->displayField('id');
         $this->primaryKey('id');
-
+        
         $this->belongsTo('Users', [
             'foreignKey' => 'user_id',
             'joinType' => 'INNER'
@@ -50,20 +51,18 @@ class AnswersTable extends Table
     /**
      * Default validation rules.
      *
-     * @param \Cake\Validation\Validator $validator Validator instance.
+     * @param \Cake\Validation\Validator $validator
+     *            Validator instance.
      * @return \Cake\Validation\Validator
      */
     public function validationDefault(Validator $validator)
     {
-        $validator
-            ->integer('id')
-            ->allowEmpty('id', 'create');
-
-        $validator
-            ->boolean('answer')
+        $validator->integer('id')->allowEmpty('id', 'create');
+        
+        $validator->boolean('answer')
             ->requirePresence('answer', 'create')
             ->notEmpty('answer');
-
+        
         return $validator;
     }
 
@@ -71,14 +70,34 @@ class AnswersTable extends Table
      * Returns a rules checker object that will be used for validating
      * application integrity.
      *
-     * @param \Cake\ORM\RulesChecker $rules The rules object to be modified.
+     * @param \Cake\ORM\RulesChecker $rules
+     *            The rules object to be modified.
      * @return \Cake\ORM\RulesChecker
      */
     public function buildRules(RulesChecker $rules)
     {
-        $rules->add($rules->existsIn(['user_id'], 'Users'));
-        $rules->add($rules->existsIn(['question_id'], 'Questions'));
-
+        $rules->add($rules->existsIn([
+            'user_id'
+        ], 'Users'));
+        $rules->add($rules->existsIn([
+            'question_id'
+        ], 'Questions'));
+        
         return $rules;
+    }
+
+    /**
+     * All answers from questions from latest 5 questions related to an election id.
+     */
+    public function findLatestAnswersFromLatestQuestions(Query $q, array $options)
+    {
+        // if !$options election_id -> exception
+        $questionIdField = $this->aliasField('question_id IN');
+        $questionIds = $this->Questions->find('latestElection', $options)
+            ->extract('id')
+            ->toArray();
+        return $q->where([
+            $questionIdField => $questionIds
+        ]);
     }
 }
