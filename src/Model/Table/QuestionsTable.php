@@ -152,6 +152,12 @@ class QuestionsTable extends Table
 
     public function outlook()
     {
+        $q = $this->Answers->find('selectedAnswers', [
+            'question_id' => 11,
+            'answer' => 1
+        ]);
+        // debug($q->toArray());
+        
         $q = $this->find();
         $q->select([
             'title',

@@ -100,4 +100,23 @@ class AnswersTable extends Table
             $questionIdField => $questionIds
         ]);
     }
+
+    public function findSelectedAnswers(Query $q, array $options)
+    {
+        if (empty($options['question_id'])) {
+            throw new OutOfBoundsException('question_id is required');
+        }
+        if (! is_int($options['answer'])) {
+            throw new OutOfBoundsException('answer is required');
+        }
+        $q->select([
+            'total_selected_answers' => $q->func()
+                ->count('Answers.id')
+        ])
+            ->where([
+            $this->aliasField('question_id') => $options['question_id'],
+            $this->aliasField('answer') => $options['answer']
+        ]);
+        return $q;
+    }
 }
