@@ -38,6 +38,11 @@ class QuestionsController extends AppController
         $this->set('questions', $q);
     }
 
+    public function outlook()
+    {
+        $this->set('questions', $this->Questions->outlook());
+    }
+
     public function repaso()
     {
         $q = $this->Questions->find();

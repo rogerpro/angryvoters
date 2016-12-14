@@ -149,4 +149,15 @@ class QuestionsTable extends Table
         ]);
         return $q;
     }
+
+    public function outlook()
+    {
+        $q = $this->find();
+        $q->contain('Answers')
+            ->limit(10)
+            ->order([
+            'Questions.created' => 'desc'
+        ]);
+        return $q;
+    }
 }
