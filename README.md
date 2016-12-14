@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # CakePHP Application Skeleton
 
 [![Build Status](https://img.shields.io/travis/cakephp/app/master.svg?style=flat-square)](https://travis-ci.org/cakephp/app)
@@ -23,3 +24,7 @@ You should now be able to visit the path to where you installed the app and see 
 
 Read and edit `config/app.php` and setup the 'Datasources' and any other
 configuration relevant for your application.
+=======
+# angryvoters
+A single CakePHP exercise for comparing political opinions build on DB from @steinkel
+>>>>>>> b0cfc1965213decf2885debe238864f5028e54b9
