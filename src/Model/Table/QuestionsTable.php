@@ -152,17 +152,19 @@ class QuestionsTable extends Table
 
     public function outlook()
     {
-        $q = $this->Answers->find('selectedAnswers', [
-            'question_id' => 11,
-            'answer' => 1
-        ]);
-        // debug($q->toArray());
-        
         $q = $this->find();
         $q->select([
             'title',
             'total_answers' => $q->func()
-                ->count('Answers.id')
+                ->count('Answers.id'),
+            'affirmative_answers' => $this->Answers->find('selectedAnswers', [
+                'question_id' => $this->aliasField('id'),
+                'answer' => 1
+            ]),
+            'negative_answers' => $this->Answers->find('selectedAnswers', [
+                'question_id' => 11,
+                'answer' => 0
+            ])
         ])
             ->leftJoinWith('Answers')
             ->limit(10)

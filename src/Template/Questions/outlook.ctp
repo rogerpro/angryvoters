@@ -1,7 +1,5 @@
 <?php
 echo $this->Html->tag('h1', __('Últimas preguntas'));
-// debug($questions->toArray());
-// debug($questions->first());
 
 $tableContents = '';
 
@@ -9,7 +7,9 @@ $rows = [];
 foreach ($questions as $question) {
     $rows[] = [
         h($question->title),
-        h($question->total_answers)
+        h($question->total_answers),
+        h($question->affirmative_answers),
+        h($question->negative_answers)
     ];
 }
 $tableContents .= $this->Html->tableHeaders([
