@@ -153,8 +153,16 @@ class QuestionsTable extends Table
     public function outlook()
     {
         $q = $this->find();
-        $q->contain('Answers')
+        $q->select([
+            'title',
+            'total_answers' => $q->func()
+                ->count('Answers.id')
+        ])
+            ->leftJoinWith('Answers')
             ->limit(10)
+            ->group([
+            'Questions.id'
+        ])
             ->order([
             'Questions.created' => 'desc'
         ]);
