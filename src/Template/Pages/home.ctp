@@ -25,6 +25,7 @@ if (! Configure::read('debug')) :
     throw new NotFoundException('Please replace src/Template/Pages/home.ctp with your own version.');
 
 
+    
 endif;
 
 $cakeDescription = 'CakePHP: the rapid development PHP framework';
@@ -46,7 +47,7 @@ $cakeDescription = 'CakePHP: the rapid development PHP framework';
 	<header>
 		<div class="header-image">
             <?= $this->Html->image('http://cakephp.org/img/logo-cake.png')?>
-            <h1>Get the Ovens Ready</h1>
+            <h1>Get the Ovens Angry ;)</h1>
 		</div>
 	</header>
 	<div id="content">
@@ -147,9 +148,7 @@ $cakeDescription = 'CakePHP: the rapid development PHP framework';
                         if (isset($errorMsg['message'])) :
                             $errorMsg .= '<br />' . $attributes['message'];
                         
-                        
                             endif;
-                    
                     
                         endif;
                 }
